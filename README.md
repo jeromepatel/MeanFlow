@@ -10,7 +10,7 @@ Built upon the [SiT](https://github.com/willisma/SiT/tree/main)  transformer arc
 
 | Model | Epoch | FID(NFE=1), our results| FID(NFE=1), results in paper|
 |---------------|---------------|----------------|----------------|
-|SiT-B/4(no cfg)| 80 |58.74|61.06, Table 1f|
+|SiT-B/4| 80 |58.74|61.06, Table 1f|
 |SiT-B/4(w cfg)| 80 |15.43|15.53, Table 1f|
 |SiT-B/2(w cfg)| 240 |6.06|6.17, Table 2|
 |SiT-L/2(w cfg)| 240 |3.94(140/240)|3.84, Table 2|
