@@ -1,20 +1,15 @@
 # MeanFlow: Pytorch Implementation
 This repository contains a minimalist PyTorch implementation of MeanFlow, a novel single-step flow matching model for high-quality image generation.
 
-## Overview
-MeanFlow introduces a principled framework for one-step generative modeling by formulating the concept of average velocity in Flow Matching methods. In contrast to conventional approaches that model instantaneous velocities, MeanFlow leverages the MeanFlow Identity to establish a well-defined relationship between average and instantaneous velocities, enabling robust single-step generation without requiring pre-training, distillation, or curriculum learning.
-
-Built upon the [SiT](https://github.com/willisma/SiT/tree/main)  transformer architecture, this implementation focuses on reproducing the state-of-the-art single-step generation capabilities demonstrated in the original paper. 
-
 ## Reproduced ImageNet Results
 
 | Model | Epoch | FID(NFE=1), our results| FID(NFE=1), results in paper|
 |---------------|---------------|----------------|----------------|
-|SiT-B/4| 80 |58.74|61.06, Table 1f|
-|SiT-B/4(w cfg)| 80 |15.43|15.53, Table 1f|
-|SiT-B/2(w cfg)| 240 |6.06|6.17, Table 2|
-|SiT-L/2(w cfg)| 240 |3.94(140/240)|3.84, Table 2|
-|SiT-XL/2(w cfg)| 240 |3.39(200/240)|3.43, Table 2|
+|SiT-B/4(wo cfg)| 80 |58.74|61.06, Table 1f|
+|SiT-B/4 | 80 |15.43|15.53, Table 1f|
+|SiT-B/2 | 240 |6.06|6.17, Table 2|
+|SiT-L/2 | 240 |3.94(140/240)|3.84, Table 2|
+|SiT-XL/2 | 240 |3.39(200/240)|3.43, Table 2|
 
 **Note**: **All the weights trained on ImageNet256 are availavle at [here](https://drive.google.com/drive/folders/1oWt6tdm5WIeVaZnBuUVheKIG3cNDffl9?usp=drive_link)**.
 
