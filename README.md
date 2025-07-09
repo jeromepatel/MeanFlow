@@ -145,7 +145,7 @@ accelerate launch --multi_gpu \
     --exp-name "meanflow_xl_2" \
     --output-dir "exp" \
     --data-dir "/data/train_vae_latents_lmdb" \
-    --model "SiT-L/2" \
+    --model "SiT-XL/2" \
     --resolution 256 \
     --batch-size 256 \
     --allow-tf32 \
@@ -162,6 +162,29 @@ accelerate launch --multi_gpu \
     --cfg-kappa 0.92\
     --cfg-min-t 0.0\
     --cfg-max-t 0.75
+
+accelerate launch --multi_gpu \
+    train.py \
+    --exp-name "meanflow_xl_2_plus" \
+    --output-dir "exp" \
+    --data-dir "/data/train_vae_latents_lmdb" \
+    --model "SiT-XL/2" \
+    --resolution 256 \
+    --batch-size 256 \
+    --allow-tf32 \
+    --mixed-precision "bf16" \
+    --epochs 1000\
+    --path-type "linear" \
+    --weighting "adaptive" \
+    --time-sampler "logit_normal" \
+    --time-mu -0.4 \
+    --time-sigma 1.0 \
+    --ratio-r-not-equal-t 0.25 \
+    --adaptive-p 1.0 \
+    --cfg-omega 1.0 \
+    --cfg-kappa 0.5\
+    --cfg-min-t 0.3\
+    --cfg-max-t 0.8
 ```
 Each configuration is optimized for different model sizes according to the original paper's settings.
 
