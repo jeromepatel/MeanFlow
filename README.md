@@ -15,9 +15,8 @@ Built upon the [SiT](https://github.com/willisma/SiT/tree/main)  transformer arc
 |SiT-B/2(w cfg)| 240 |6.06|6.17, Table 2|
 |SiT-L/2(w cfg)| 240 |3.94(140/240)|3.84, Table 2|
 |SiT-XL/2(w cfg)| 240 |3.39(200/240)|3.43, Table 2|
-|SiT-XL/2(w cfg)| 240 |12.57(40/240)|ImageNet512|
 
-**Note**: **We are still working on reproducing all experimental results and plan to release the trained model weights upon completion**.
+**Note**: **All the weights trained on ImageNet256 are availavle at [here](https://drive.google.com/drive/folders/1oWt6tdm5WIeVaZnBuUVheKIG3cNDffl9?usp=drive_link)**.
 For comprehensive performance metrics and theories, please refer to the original paper: [Mean Flows for One-step Generative Modeling](https://arxiv.org/pdf/2505.13447).
 
 Other exploration：Fine-tuning Pretrained Flow Matching Models
