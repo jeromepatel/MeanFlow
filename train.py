@@ -222,9 +222,10 @@ def main(args):
             
             with accelerator.accumulate(model):
                 model_kwargs = dict(y=labels)
-                loss = loss_fn(model, x, model_kwargs)
+                loss, loss_ref = loss_fn(model, x, model_kwargs)
                 loss_mean = loss.mean()
-                loss = loss_mean
+                loss_mean_ref = loss_ref.mean()
+                loss = loss_mean                
                     
                 ## optimization
                 accelerator.backward(loss)
@@ -255,6 +256,7 @@ def main(args):
 
             logs = {
                 "loss": accelerator.gather(loss_mean).mean().detach().item(), 
+                "loss_ref": accelerator.gather(loss_mean_ref).mean().detach().item(), 
                 "grad_norm": accelerator.gather(grad_norm).mean().detach().item()
             }
             progress_bar.set_postfix(**logs)
