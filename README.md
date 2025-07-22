@@ -182,6 +182,7 @@ accelerate launch --multi_gpu \
 Each configuration is optimized for different model sizes according to the original paper's settings.
 
 **Finetuning with pretrained flow matching model**
+
 For finetuning explorations, please use the `finetune_fm` branch.
 ```bash
 git checkout finetune_fm
