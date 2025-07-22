@@ -13,7 +13,7 @@ This repository contains a minimalist PyTorch implementation of MeanFlow, a nove
 
 **Note**: **All the weights trained on ImageNet256 are availavle at [here](https://drive.google.com/drive/folders/1oWt6tdm5WIeVaZnBuUVheKIG3cNDffl9?usp=drive_link)**.
 
-## DO NOT Overlook the pretrained Flow Matching model：Fine-tuning Pretrained Flow Matching Models with MeanFlow
+## DO NOT overlook the pretrained flow matching model：Fine-tuning Pretrained Flow Matching Models with MeanFlow
 | Model | FID(NFE=1), our results| FID(NFE=2), our results|FID(NFE=2), results in paper|
 |---------------|---------------|----------------|----------------|
 |SiT-XL/2(w cfg) + [pretrained weights](https://www.dl.dropboxusercontent.com/scl/fi/as9oeomcbub47de5g4be0/SiT-XL-2-256.pt?rlkey=uxzxmpicu46coq3msb17b9ofa&dl=0) (1400 epoch)|4.52|2.81 (1400+20+40)|2.93, 240 epoch, Table 2|
@@ -180,6 +180,12 @@ accelerate launch --multi_gpu \
     --cfg-max-t 0.8
 ```
 Each configuration is optimized for different model sizes according to the original paper's settings.
+
+**Finetuning with pretrained flow matching model**
+For finetuning explorations, please use the `finetune_fm` branch.
+```bash
+git checkout finetune_fm
+```
 
 **Sampling and Evaluation**
 
