@@ -291,8 +291,8 @@ This implementation builds upon:
 
 ## Official MeanFlow Repos
 See also:
-- Official (MeanFlow JAX repo)[https://github.com/Gsunshine/meanflow] with ImageNet experiments.
-- Official (MeanFlow PyTorch repo)[https://github.com/Gsunshine/py-meanflow] with CIFAR10 experiments.
+- Official [MeanFlow JAX repo](https://github.com/Gsunshine/meanflow) with ImageNet experiments.
+- Official [MeanFlow PyTorch repo](https://github.com/Gsunshine/py-meanflow) with CIFAR10 experiments.
 
 ## Citation
 If you find this implementation useful in your research, please cite the original work and this repo:
