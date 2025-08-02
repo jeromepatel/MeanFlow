@@ -289,6 +289,11 @@ This implementation builds upon:
 - [REPA](https://github.com/sihyun-yu/REPA/tree/main) (training pipeline)
 - [MAR](https://github.com/LTH14/mar/tree/main) (data preprocessing)
 
+## Official MeanFlow Repos
+See also:
+- Official (MeanFlow JAX repo)[https://github.com/Gsunshine/meanflow] with ImageNet experiments.
+- Official (MeanFlow PyTorch repo)[https://github.com/Gsunshine/py-meanflow] with CIFAR10 experiments.
+
 ## Citation
 If you find this implementation useful in your research, please cite the original work and this repo:
 ```
