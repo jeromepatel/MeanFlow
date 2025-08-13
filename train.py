@@ -22,9 +22,12 @@ from accelerate.utils import ProjectConfiguration, set_seed
 from sit import SiT_models
 from loss import SILoss
 
-from dataset import LMDBLatentsDataset
+# from dataset_old import LMDBLatentsDataset
+from dataset import CustomDataset
 from diffusers.models.autoencoders.vae import DiagonalGaussianDistribution
 import math
+import wandb
+
 
 logger = get_logger(__name__)
 
@@ -144,7 +147,12 @@ def main(args):
     )
     if accelerator.is_main_process:
         logger.info(f"SiT Parameters: {sum(p.numel() for p in model.parameters()):,}")
-    
+        # Initialize wandb
+        wandb.init(
+            project="MeanFlow", 
+            config=vars(args),
+            name=args.exp_name
+        )
     # Setup optimizer
     if args.allow_tf32:
         torch.backends.cuda.matmul.allow_tf32 = True
@@ -159,7 +167,7 @@ def main(args):
     )    
     
     # Setup data:
-    train_dataset = LMDBLatentsDataset(args.data_dir, flip_prob=0.5)
+    train_dataset = CustomDataset(args.data_dir)
     local_batch_size = int(args.batch_size // accelerator.num_processes)
     train_dataloader = DataLoader(
         train_dataset,
@@ -211,10 +219,10 @@ def main(args):
         ).view(1, 4, 1, 1).to(device)
     for epoch in range(args.epochs):
         model.train()
-        for moments, labels in train_dataloader:
+        for _, moments, labels in train_dataloader:
             moments = moments.to(device, non_blocking=True)
             labels = labels.to(device, non_blocking=True)
-
+  
             with torch.no_grad():
                 posterior = DiagonalGaussianDistribution(moments)
                 x = posterior.sample()
@@ -244,7 +252,7 @@ def main(args):
             if global_step % args.checkpointing_steps == 0 and global_step > 0 or global_step >= args.max_train_steps:
                 if accelerator.is_main_process:
                     checkpoint = {
-                        "model": model.module.state_dict(),
+                        "model": model.state_dict(),
                         "ema": ema.state_dict(),
                         "opt": optimizer.state_dict(),
                         "args": args,
@@ -261,7 +269,11 @@ def main(args):
             }
             progress_bar.set_postfix(**logs)
             
-            # Log to file periodically
+            # Log loss to wandb every step
+            if accelerator.is_main_process:
+                wandb.log({"loss": logs["loss"], "grad_norm": logs["grad_norm"]}, step=global_step)
+            
+            # # Log to file periodically
             if accelerator.is_main_process and global_step % 100 == 0:
                 logger.info(f"Step {global_step}: loss = {logs['loss']:.4f}, grad_norm = {logs['grad_norm']:.4f}")
 

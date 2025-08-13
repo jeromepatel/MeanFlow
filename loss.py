@@ -98,7 +98,7 @@ class SILoss:
         if model_kwargs.get('y') is not None and self.label_dropout_prob > 0:
             y = model_kwargs['y'].clone()  
             batch_size = y.shape[0]
-            num_classes = model.module.num_classes
+            num_classes = model.num_classes
             dropout_mask = torch.rand(batch_size, device=y.device) < self.label_dropout_prob
             
             y[dropout_mask] = num_classes
@@ -150,7 +150,7 @@ class SILoss:
                 
                 # Compute v_tilde for CFG samples
                 cfg_y = cfg_kwargs.get('y')
-                num_classes = model.module.num_classes
+                num_classes = model.num_classes
                 
                 cfg_z_t_batch = torch.cat([cfg_z_t, cfg_z_t], dim=0)
                 cfg_t_batch = torch.cat([cfg_t, cfg_t], dim=0)
