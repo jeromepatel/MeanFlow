@@ -237,6 +237,7 @@ def main(args):
                     
                 ## optimization
                 accelerator.backward(loss)
+                grad_norm = 0.0
                 if accelerator.sync_gradients:
                     params_to_clip = model.parameters()
                     grad_norm = accelerator.clip_grad_norm_(params_to_clip, args.max_grad_norm)
@@ -261,7 +262,7 @@ def main(args):
                     checkpoint_path = f"{checkpoint_dir}/{global_step:07d}.pt"
                     torch.save(checkpoint, checkpoint_path)
                     logger.info(f"Saved checkpoint to {checkpoint_path}")
-
+            
             logs = {
                 "loss": accelerator.gather(loss_mean).mean().detach().item(), 
                 "loss_ref": accelerator.gather(loss_mean_ref).mean().detach().item(), 
